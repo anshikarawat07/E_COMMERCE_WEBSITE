@@ -154,7 +154,120 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+{/* ===== FASHION VISUAL SECTION ===== */}
+            <section className="min-h-screen text-white px-16 py-28">
 
+                <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+
+                    {/* LEFT IMAGE (smaller + elegant) */}
+                    <div className="relative group flex justify-center">
+                        <img
+                            src="https://thumbs.dreamstime.com/b/friends-fashion-gen-z-people-portrait-diversity-relax-sidewalk-casual-cool-young-students-urban-streetwear-style-287578630.jpg"
+                            className="w-[400px] h-[600px] object-cover rounded-[35px] shadow-xl 
+        group-hover:scale-105 transition duration-700"
+                        />
+
+                        {/* floating tag */}
+                        <div className="absolute bottom-5 left-10 bg-black/60 backdrop-blur px-4 py-2 rounded-lg">
+                            <p className="text-xs tracking-widest">URBAN COLLECTION</p>
+                        </div>
+                    </div>
+
+                    {/* RIGHT TEXT */}
+                    <div>
+                        <p className="text-xs tracking-[0.5em] text-gray-500 mb-6">
+                            STYLE EVOLUTION
+                        </p>
+
+                        <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
+                            Designed for confidence,
+                            <span className="block mt-2">built for everyday luxury</span>
+                        </h2>
+
+                        <p className="text-gray-400 mt-8 leading-relaxed">
+                            Urban Thread creates fashion that reflects individuality and modern
+                            confidence. Our collections blend minimal luxury with contemporary
+                            streetwear to elevate everyday styling.
+                        </p>
+
+                        <p className="text-gray-500 mt-4 text-sm leading-relaxed">
+                            Every piece is thoughtfully crafted to ensure comfort, versatility
+                            and bold expression for the new generation of fashion enthusiasts.
+                        </p>
+
+                        {/* horizontal line */}
+                        <div className="mt-10 w-20 h-[1px] bg-white/30"></div>
+
+                        {/* small note */}
+                        <p className="mt-6 text-sm text-gray-400 italic">
+                            Crafted for those who wear confidence daily.
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+            {/* ===== CONTACT / FOOTER ===== */}
+            <section className="min-h-screen flex flex-col justify-center items-center text-center px-6">
+
+                {/* heading */}
+                <p className="text-xs tracking-[0.4em] text-gray-500 mb-4">
+                    CONNECT WITH US
+                </p>
+
+                <h2 className="text-4xl md:text-5xl font-semibold mb-6">
+                    Stay Connected
+                </h2>
+
+                {/* description */}
+                <p className="text-gray-400 max-w-md">
+                    We are here to help you with orders, styling and support.
+                    Reach out to us anytime.
+                </p>
+
+                {/* contact details */}
+                <div className="mt-10 space-y-3 text-gray-300">
+
+                    <p>
+                        Email:
+                        <span className="text-gray-400 ml-2">support@urbanthread.com</span>
+                    </p>
+
+                    <p>
+                        Phone:
+                        <span className="text-gray-400 ml-2">+91 98765 43210</span>
+                    </p>
+
+                    <p>
+                        Customer Care:
+                        <span className="text-gray-400 ml-2">Mon – Sat, 10AM – 7PM</span>
+                    </p>
+
+                    <p>
+                        Location:
+                        <span className="text-gray-400 ml-2">New Delhi, India</span>
+                    </p>
+
+                </div>
+
+                {/* socials */}
+                <div className="flex gap-10 mt-10 text-gray-400 text-sm">
+                    <span className="hover:text-white transition cursor-pointer">Instagram</span>
+                    <span className="hover:text-white transition cursor-pointer">Pinterest</span>
+                    <span className="hover:text-white transition cursor-pointer">Twitter</span>
+                </div>
+
+                {/* divider */}
+                <div className="w-24 h-[1px] bg-white/20 mt-16"></div>
+
+                {/* footer */}
+                <p className="text-gray-500 text-xs mt-6">
+                    © 2026 Urban Thread. All rights reserved.
+                </p>
+
+            </section>
 
 
 
