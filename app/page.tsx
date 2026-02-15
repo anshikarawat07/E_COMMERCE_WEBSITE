@@ -154,7 +154,7 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-{/* ===== FASHION VISUAL SECTION ===== */}
+            {/* ===== FASHION VISUAL SECTION ===== */}
             <section className="min-h-screen text-white px-16 py-28">
 
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
