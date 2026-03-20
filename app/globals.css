@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* ===== GLOBAL THEME ===== */
+body {
+    background: linear-gradient(to right, #000000, #111827);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* hide scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* smooth image hover */
+img {
+    transition: all 0.6s ease;
+}
+
+/* glass blur support */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+}
