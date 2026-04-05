@@ -1,5 +1,5 @@
-import { isDatabaseConfigured, prisma } from "@/lib/prisma";
-import { signupFallback } from "@/lib/authStore";
+import { isDatabaseConfigured, prisma } from "@/app/lib/prisma";
+import { signupFallback } from "@/app/lib/authStore";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
@@ -13,7 +13,6 @@ export async function POST(req: Request) {
             if (!res.ok) return NextResponse.json({ error: res.error });
             return NextResponse.json({ success: true });
         }
-
         // check existing user
         const existing = await prisma.user.findUnique({
             where: { email }

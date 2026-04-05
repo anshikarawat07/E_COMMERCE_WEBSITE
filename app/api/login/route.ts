@@ -1,5 +1,5 @@
-import { isDatabaseConfigured, prisma } from "@/lib/prisma";
-import { loginFallback } from "@/lib/authStore";
+import { isDatabaseConfigured, prisma } from "@/app/lib/prisma";
+import { loginFallback } from "@/app/lib/authStore";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
@@ -22,7 +22,6 @@ export async function POST(req: Request) {
                 name: res.name,
             });
         }
-
         // find user
         const user = await prisma.user.findUnique({
             where: { email },

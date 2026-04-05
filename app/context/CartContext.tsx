@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { products, type Product } from "@/lib/products";
+import { products, type Product } from "@/app/lib/products";
 
 type CartMap = Record<number, number>; // productId -> quantity
 

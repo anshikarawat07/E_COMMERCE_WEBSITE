@@ -26,5 +26,12 @@
     "email": "yuganshgandhi@gmail.com",
     "password": "$2b$10$KJ08mnfpW.GyWCfpAr83reQCYefugSDYtuj7A6Nq3yw2r4fXpyouG",
     "createdAt": "2026-03-20T09:05:59.306Z"
+  },
+  {
+    "id": 5,
+    "name": "vaishnavi",
+    "email": "vaishnavi745bisht@gmail.com",
+    "password": "$2b$10$BPDNwjgp/POFp69UE/bZUuBPL0w2pMdKwfVm2Lvgwz.8fks9NU7hu",
+    "createdAt": "2026-04-03T07:23:11.986Z"
   }
 ]
