@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "testuser",
+    "email": "test639096134604333660@example.com",
+    "password": "$2b$10$jLIITkdC4eg8EtU0bjiAFufaF.PhFYVFXRhPnvqreWn9IP4khDtGC",
+    "createdAt": "2026-03-20T08:54:20.707Z"
+  },
+  {
+    "id": 2,
+    "name": "testuser",
+    "email": "signup639096134691784048@example.com",
+    "password": "$2b$10$F38gzIrIW2cPYz7Z1no6k.POn9D2srY1rNIGfQ3m09eBRYD.Zi.qC",
+    "createdAt": "2026-03-20T08:54:29.282Z"
+  },
+  {
+    "id": 3,
+    "name": "flowuser",
+    "email": "flow639096134973564374@example.com",
+    "password": "$2b$10$SxBZ2r9wzGdSSk0dlEB7e.JVNrylbJd/qRVHq5OxfmS9k6y13wbWC",
+    "createdAt": "2026-03-20T08:54:57.481Z"
+  },
+  {
+    "id": 4,
+    "name": "yugansh_gandhi",
+    "email": "yuganshgandhi@gmail.com",
+    "password": "$2b$10$KJ08mnfpW.GyWCfpAr83reQCYefugSDYtuj7A6Nq3yw2r4fXpyouG",
+    "createdAt": "2026-03-20T09:05:59.306Z"
+  },
+  {
+    "id": 5,
+    "name": "vaishnavi",
+    "email": "vaishnavi745bisht@gmail.com",
+    "password": "$2b$10$BPDNwjgp/POFp69UE/bZUuBPL0w2pMdKwfVm2Lvgwz.8fks9NU7hu",
+    "createdAt": "2026-04-03T07:23:11.986Z"
+  }
+]

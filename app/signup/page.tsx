@@ -75,6 +75,8 @@ export default function Signup() {
                 setMsg("Account created successfully");
 
                 setTimeout(() => {
+                    // Persist the entered name so the dashboard greeting uses it.
+                    localStorage.setItem("name", name);
                     router.push("/login");
                 }, 800);
             }

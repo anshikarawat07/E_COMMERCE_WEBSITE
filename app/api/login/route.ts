@@ -1,4 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { isDatabaseConfigured, prisma } from "@/app/lib/prisma";
+import { loginFallback } from "@/app/lib/authStore";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
@@ -11,6 +12,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Enter email & password" });
         }
 
+        // Dev fallback (when DATABASE_URL isn't configured).
+        if (!isDatabaseConfigured() || !prisma) {
+            const res = await loginFallback({ email, password });
+            if (!res.ok) return NextResponse.json({ error: res.error });
+            return NextResponse.json({
+                message: "Login success",
+                token: res.token,
+                name: res.name,
+            });
+        }
         // find user
         const user = await prisma.user.findUnique({
             where: { email },
@@ -42,6 +53,9 @@ export async function POST(req: Request) {
 
     } catch (err) {
         console.log(err);
+        if (err instanceof Error) {
+            return NextResponse.json({ error: err.message });
+        }
         return NextResponse.json({ error: "Server error" });
     }
 }

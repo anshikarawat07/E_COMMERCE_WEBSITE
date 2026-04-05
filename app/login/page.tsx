@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -26,18 +27,24 @@ export default function Login() {
             setMsg("Enter email & password");
             return;
         }
+
         try {
             const res = await fetch("/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             });
+
             const data = await res.json();
+
             if (data.error) {
                 setMsg(data.error);
             } else {
                 setMsg("Login successful");
+
                 localStorage.setItem("token", data.token);
+                if (data.name) localStorage.setItem("name", data.name);
+
                 setTimeout(() => router.push("/dashboard"), 800);
             }
         } catch (err) {
@@ -47,7 +54,7 @@ export default function Login() {
 
     return (
         <>
-            {/* SVG Colorblind Filters */}
+            {/* SVG FILTERS */}
             <svg width="0" height="0" style={{ position: "absolute" }}>
                 <defs>
                     <filter id="deuter">
@@ -64,64 +71,49 @@ export default function Login() {
 
             <div
                 style={{ filter: cbFilters[cbMode] }}
-                className={`h-screen flex flex-col items-center justify-center px-6 overflow-hidden relative ${isHighContrast ? "bg-black text-white" : "bg-[#0b0b0b] text-white"}`}
+                className={`h-screen flex flex-col items-center justify-center px-6 relative ${
+                    isHighContrast ? "bg-black text-white" : "bg-[#0b0b0b] text-white"
+                }`}
             >
-                {/* BACK HOME BUTTON — top left */}
+                {/* BACK BUTTON */}
                 <button
                     onClick={() => router.push("/")}
-                    className={`absolute top-5 left-6 z-50 flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition ${
-                        isHighContrast
-                            ? "border-yellow-400 text-yellow-400 bg-black hover:bg-yellow-400/20"
-                            : "border-white/20 text-gray-300 hover:border-white hover:text-white bg-[#111]"
-                    }`}
+                    className="absolute top-5 left-6 px-3 py-2 rounded-lg text-xs border text-gray-300 bg-[#111]"
                 >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M19 12H5M12 5l-7 7 7 7" />
-                    </svg>
-                    Back to Home
+                    ← Back
                 </button>
 
-                {/* ACCESSIBILITY BUTTON — top right */}
-                <div className="absolute top-5 right-6 z-50">
+                {/* ACCESSIBILITY BUTTON */}
+                <div className="absolute top-5 right-6">
                     <button
                         onClick={() => setCbPanelOpen(!cbPanelOpen)}
-                        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition ${
-                            isHighContrast
-                                ? "border-yellow-400 text-yellow-400 bg-black"
-                                : "border-white/20 text-gray-300 hover:border-white hover:text-white bg-[#111]"
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border shadow-md transition-all ${
+                            cbPanelOpen
+                                ? "bg-yellow-400 text-black border-yellow-400 scale-105"
+                                : "bg-yellow-500 text-black border-yellow-500 hover:scale-105"
                         }`}
                     >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 8v4m0 4h.01" />
-                        </svg>
                         Accessibility
                     </button>
 
                     {cbPanelOpen && (
-                        <div
-                            className={`absolute right-0 top-11 w-64 rounded-xl border p-4 z-50 shadow-xl ${
-                                isHighContrast ? "bg-black border-yellow-400" : "bg-[#1a1a1a] border-white/20"
-                            }`}
-                        >
-                            <p className={`text-xs mb-3 font-medium uppercase tracking-wider ${isHighContrast ? "text-yellow-400" : "text-gray-400"}`}>
-                                Colorblind mode
-                            </p>
+                        <div className="absolute right-0 top-12 w-64 rounded-2xl border p-4 shadow-2xl bg-[#1a1a1a]">
+                            <p className="text-xs mb-3 text-gray-400">Color Mode</p>
+
                             {["none", "deuteranopia", "protanopia", "tritanopia", "highcontrast"].map((mode) => (
                                 <button
                                     key={mode}
-                                    onClick={() => { setCbMode(mode); setCbPanelOpen(false); }}
-                                    className={`w-full text-left px-3 py-2 rounded-lg text-sm mb-1 transition ${
+                                    onClick={() => {
+                                        setCbMode(mode);
+                                        setCbPanelOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 rounded-lg text-sm mb-1 ${
                                         cbMode === mode
-                                            ? isHighContrast ? "bg-yellow-400 text-black font-medium" : "bg-white text-black font-medium"
-                                            : isHighContrast ? "text-yellow-400 hover:bg-yellow-400/20" : "text-gray-300 hover:bg-white/10"
+                                            ? "bg-yellow-400 text-black font-semibold"
+                                            : "text-gray-300 hover:bg-white/10"
                                     }`}
                                 >
-                                    {mode === "none" && "Default"}
-                                    {mode === "deuteranopia" && "Deuteranopia (red-green)"}
-                                    {mode === "protanopia" && "Protanopia (red-blind)"}
-                                    {mode === "tritanopia" && "Tritanopia (blue-yellow)"}
-                                    {mode === "highcontrast" && "High contrast"}
+                                    {mode}
                                 </button>
                             ))}
                         </div>
@@ -129,97 +121,33 @@ export default function Login() {
                 </div>
 
                 {/* LOGIN CARD */}
-                <div
-                    className={`max-w-5xl w-full h-[620px] grid md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl border ${
-                        isHighContrast ? "border-yellow-400" : "border-white/10"
-                    }`}
-                >
-                    {/* LEFT IMAGE */}
-                    <div className="hidden md:block relative">
-                        <img
-                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800"
-                            className="h-full w-full object-cover"
-                            alt="Fashion model"
-                        />
-                        <div className={`absolute inset-0 flex flex-col justify-end p-10 ${isHighContrast ? "bg-black/70" : "bg-black/40"}`}>
-                            <h1 className={`text-3xl font-semibold tracking-widest ${isHighContrast ? "text-yellow-400" : "text-white"}`}>
-                                URBAN THREAD
-                            </h1>
-                            <p className={`text-sm mt-2 ${isHighContrast ? "text-yellow-200" : "text-gray-300"}`}>
-                                Premium fashion for modern generation
-                            </p>
-                        </div>
-                    </div>
+                <div className="max-w-md w-full p-8 bg-[#111] rounded-2xl shadow-xl">
+                    <h2 className="text-2xl mb-4">Login</h2>
 
-                    {/* RIGHT FORM */}
-                    <div className={`p-10 flex flex-col justify-center ${isHighContrast ? "bg-black" : "bg-[#111]"}`}>
-                        <h2 className={`text-3xl font-semibold mb-2 ${isHighContrast ? "text-yellow-400" : "text-white"}`}>
-                            Welcome Back
-                        </h2>
-                        <p className={`text-sm mb-8 ${isHighContrast ? "text-yellow-200" : "text-gray-400"}`}>
-                            Login to continue your fashion journey
-                        </p>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full mb-3 p-3 rounded bg-black text-white border border-gray-700"
+                    />
 
-                        {/* Email */}
-                        <input
-                            type="email"
-                            placeholder="Email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className={`w-full mb-4 px-4 py-3 rounded-lg outline-none transition ${
-                                isHighContrast
-                                    ? "bg-black border-2 border-yellow-400 text-yellow-400 placeholder-yellow-700"
-                                    : "bg-transparent border border-white/20 text-white placeholder-gray-500 focus:border-white"
-                            }`}
-                        />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full mb-4 p-3 rounded bg-black text-white border border-gray-700"
+                    />
 
-                        {/* Password */}
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className={`w-full mb-6 px-4 py-3 rounded-lg outline-none transition ${
-                                isHighContrast
-                                    ? "bg-black border-2 border-yellow-400 text-yellow-400 placeholder-yellow-700"
-                                    : "bg-transparent border border-white/20 text-white placeholder-gray-500 focus:border-white"
-                            }`}
-                        />
+                    <button
+                        onClick={handleLogin}
+                        className="w-full py-3 bg-white text-black rounded-lg"
+                    >
+                        Login
+                    </button>
 
-                        {/* Button */}
-                        <button
-                            onClick={handleLogin}
-                            className={`w-full py-3 rounded-lg font-semibold hover:scale-[1.02] transition ${
-                                isHighContrast
-                                    ? "bg-yellow-400 text-black hover:bg-yellow-300 border-2 border-yellow-400"
-                                    : "bg-white text-black hover:opacity-90"
-                            }`}
-                        >
-                            Login
-                        </button>
-
-                        {/* Message */}
-                        {msg && (
-                            <p className={`text-sm text-center mt-4 ${
-                                isHighContrast
-                                    ? msg === "Login successful" ? "text-yellow-400" : "text-red-400"
-                                    : "text-gray-300"
-                            }`}>
-                                {msg}
-                            </p>
-                        )}
-
-                        {/* Signup link */}
-                        <p className={`text-sm text-center mt-8 ${isHighContrast ? "text-yellow-200" : "text-gray-400"}`}>
-                            Don't have account?
-                            <span
-                                onClick={() => router.push("/signup")}
-                                className={`ml-2 underline cursor-pointer ${isHighContrast ? "text-yellow-400" : "text-white"}`}
-                            >
-                                Create account
-                            </span>
-                        </p>
-                    </div>
+                    {msg && <p className="mt-3 text-sm">{msg}</p>}
                 </div>
             </div>
         </>

@@ -1,4 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { isDatabaseConfigured, prisma } from "@/app/lib/prisma";
+import { signupFallback } from "@/app/lib/authStore";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
@@ -6,6 +7,12 @@ export async function POST(req: Request) {
     try {
         const { name, email, password } = await req.json();
 
+        // Dev fallback (when DATABASE_URL isn't configured).
+        if (!isDatabaseConfigured() || !prisma) {
+            const res = await signupFallback({ name, email, password });
+            if (!res.ok) return NextResponse.json({ error: res.error });
+            return NextResponse.json({ success: true });
+        }
         // check existing user
         const existing = await prisma.user.findUnique({
             where: { email }
@@ -31,6 +38,10 @@ export async function POST(req: Request) {
 
     } catch (err) {
         console.log(err);
+        if (err instanceof Error) {
+            // Surface misconfiguration clearly to the frontend.
+            return NextResponse.json({ error: err.message });
+        }
         return NextResponse.json({ error: "Server error" });
     }
 }
